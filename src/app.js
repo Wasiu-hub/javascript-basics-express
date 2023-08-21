@@ -43,7 +43,6 @@ app.get('/numbers/add/:a/and/:b', (req, res) => {
   if (isNaN(a) || isNaN(b)) {
     return res.status(400).json({ error: 'Parameters must be valid numbers.' });
   }
-
   res.status(200).json({ result: add(a, b) });
 });
 
