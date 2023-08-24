@@ -71,7 +71,8 @@ app.post('/numbers/multiply', (req, res) => {
   if (a === undefined || b === undefined) {
     return res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
   }
-  if (Number.isNaN(a) || Number.isNaN(b)) {
+  // console.log(a, Number.isNaN(a));
+  if (Number.isNaN(parseInt(a, 10)) || Number.isNaN(parseInt(b, 10))) {
     return res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
   }
   return res.status(200).json({ result: multiply(a, b) });
