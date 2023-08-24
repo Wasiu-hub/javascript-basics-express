@@ -1,12 +1,19 @@
 const express = require('express');
-const { sayHello, uppercase, lowercase, firstCharacter, firstCharacters } = require('./lib/strings');
+const {
+  sayHello,
+  uppercase,
+  lowercase,
+  firstCharacter,
+  firstCharacters,
+} = require('./lib/strings');
 
 const { add, subtract, multiply } = require('./lib/numbers');
 
 const app = express();
 app.use(express.json());
 
-// strings endpoints
+// STRINGS
+
 // app.get('/strings/hello/world', (req, res) => {
 //   res.status(200).json({ result: 'Hello, world!' });
 // });
@@ -35,41 +42,39 @@ app.get('/strings/first-characters/:string', (req, res) => {
   }
 });
 
-
-// numbers endpoints
+// NUMBERS
+// add
 app.get('/numbers/add/:a/and/:b', (req, res) => {
-  const a = parseInt(req.params.a);
-  const b = parseInt(req.params.b);
+  const a = parseInt(req.params.a, 10);
+  const b = parseInt(req.params.b, 10);
 
-  if (isNaN(a) || isNaN(b)) {
+  if (Number.isNaN(a) || Number.isNaN(b)) {
     return res.status(400).json({ error: 'Parameters must be valid numbers.' });
   }
-  res.status(200).json({ result: add(a, b) });
+  return res.status(200).json({ result: add(a, b) });
 });
 
+// subtract
 app.get('/numbers/subtract/:a/from/:b', (req, res) => {
-  const a = parseInt(req.params.a);
-  const b = parseInt(req.params.b);
+  const a = parseInt(req.params.a, 10);
+  const b = parseInt(req.params.b, 10);
 
-  if (isNaN(a) || isNaN(b)) {
+  if (Number.isNaN(a) || Number.isNaN(b)) {
     return res.status(400).json({ error: 'Parameters must be valid numbers.' });
   }
-  res.status(200).json({ result: subtract(b, a) });
+  return res.status(200).json({ result: subtract(b, a) });
 });
 
+// multiply
 app.post('/numbers/multiply', (req, res) => {
-
   const { a, b } = req.body;
-  if (a === undefined || b === undefined ) {
+  if (a === undefined || b === undefined) {
     return res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
-    
-  } else if (isNaN(a) || isNaN(b)){
+  }
+  if (Number.isNaN(a) || Number.isNaN(b)) {
     return res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
-  } 
-
-  res.status(200).json({ result: multiply(a,b) });
+  }
+  return res.status(200).json({ result: multiply(a, b) });
 });
-
-
 
 module.exports = app;
