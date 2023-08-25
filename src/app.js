@@ -7,7 +7,7 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 
-const { add, subtract, multiply } = require('./lib/numbers');
+const { add, subtract, multiply, divide } = require('./lib/numbers');
 
 const app = express();
 app.use(express.json());
@@ -78,4 +78,9 @@ app.post('/numbers/multiply', (req, res) => {
   return res.status(200).json({ result: multiply(a, b) });
 });
 
+// divide
+app.post('/numbers/divide', (req, res) => {
+  const { a, b } = req.body;
+  return res.status(200).json({ result: divide(a, b) });
+});
 module.exports = app;
