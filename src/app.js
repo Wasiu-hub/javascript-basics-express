@@ -81,6 +81,10 @@ app.post('/numbers/multiply', (req, res) => {
 // divide
 app.post('/numbers/divide', (req, res) => {
   const { a, b } = req.body;
+
+  if (b === 0) {
+    return res.status(400).json({ error: 'Unable to divide by 0.' });
+  }
   return res.status(200).json({ result: divide(a, b) });
 });
 module.exports = app;
