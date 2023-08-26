@@ -85,7 +85,9 @@ app.post('/numbers/divide', (req, res) => {
   if (a === undefined || b === undefined) {
     return res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
   }
-
+  if (Number.isNaN(parseInt(a, 10)) || Number.isNaN(parseInt(b, 10))) {
+    return res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  }
   if (b === 0) {
     return res.status(400).json({ error: 'Unable to divide by 0.' });
   }
