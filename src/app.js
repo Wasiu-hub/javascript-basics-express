@@ -7,7 +7,7 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 
-const { add, subtract, multiply, divide } = require('./lib/numbers');
+const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
 const app = express();
 app.use(express.json());
@@ -92,5 +92,11 @@ app.post('/numbers/divide', (req, res) => {
     return res.status(400).json({ error: 'Unable to divide by 0.' });
   }
   return res.status(200).json({ result: divide(a, b) });
+});
+
+// remainder
+app.post('/numbers/remainder', (req, res) => {
+  const { a, b } = req.body;
+  return res.status(200).json({ result: remainder(a, b) });
 });
 module.exports = app;
