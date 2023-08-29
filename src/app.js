@@ -97,6 +97,10 @@ app.post('/numbers/divide', (req, res) => {
 // remainder
 app.post('/numbers/remainder', (req, res) => {
   const { a, b } = req.body;
+  if (a === undefined || b === undefined) {
+    return res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  }
+
   if (b === 0) {
     return res.status(400).json({ error: 'Unable to divide by 0.' });
   }
