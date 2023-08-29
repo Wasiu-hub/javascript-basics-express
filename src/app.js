@@ -101,6 +101,10 @@ app.post('/numbers/remainder', (req, res) => {
     return res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
   }
 
+  if (Number.isNaN(parseInt(a, 10)) || Number.isNaN(parseInt(b, 10))) {
+    return res.status(400).json({ error: 'Parameters must be valid numbers.' });
+  }
+
   if (b === 0) {
     return res.status(400).json({ error: 'Unable to divide by 0.' });
   }
