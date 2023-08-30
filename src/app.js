@@ -9,7 +9,7 @@ const {
 
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
-const { negate } = require('./lib/booleans');
+const { negate, truthiness } = require('./lib/booleans');
 
 const app = express();
 app.use(express.json());
@@ -118,4 +118,10 @@ app.post('/booleans/negate', (req, res) => {
   const { value } = req.body;
   return res.status(200).json({ result: negate(value) });
 });
+
+app.post('/booleans/truthiness', (req, res) => {
+  const { value } = req.body;
+  return res.status(200).json({ result: truthiness(value) });
+});
+
 module.exports = app;
