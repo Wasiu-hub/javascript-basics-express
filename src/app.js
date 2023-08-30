@@ -9,6 +9,8 @@ const {
 
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
+const { negate } = require('./lib/booleans');
+
 const app = express();
 app.use(express.json());
 
@@ -109,5 +111,11 @@ app.post('/numbers/remainder', (req, res) => {
     return res.status(400).json({ error: 'Unable to divide by 0.' });
   }
   return res.status(200).json({ result: remainder(a, b) });
+});
+
+// BOOLEANS
+app.post('/booleans/negate', (req, res) => {
+  const { value } = req.body;
+  return res.status(200).json({ result: negate(value) });
 });
 module.exports = app;
