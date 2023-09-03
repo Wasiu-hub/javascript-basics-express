@@ -9,7 +9,7 @@ const {
 
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
-const { negate, truthiness, isOdd } = require('./lib/booleans');
+const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 
 const app = express();
 app.use(express.json());
@@ -130,6 +130,14 @@ app.get('/booleans/is-odd/:a', (req, res) => {
     return res.status(400).json({ error: 'Parameter must be a number.' });
   }
   return res.status(200).json({ result: isOdd(a) });
+});
+
+app.get('/booleans/:cat/starts-with/:c', (req, res) => {
+  const { c, cat } = req.params;
+  if (c.length > 1) {
+    res.status(400).json({ error: 'Parameter "character" must be a single character.' });
+  }
+  res.status(200).json({ result: startsWith(c, cat) });
 });
 
 module.exports = app;
